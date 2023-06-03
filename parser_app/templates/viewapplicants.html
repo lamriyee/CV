@@ -39,7 +39,7 @@
   <body>
     <center>
       <br />
-      <h2>Registered Applicants</h2>
+      <h2>Applied candidates list</h2>
     </center>
     <div class="container">
       <div class="row">
@@ -54,7 +54,6 @@
                 <th class="no-sort">Mobile Number</th>
                 <th class="no-sort">Skills</th>
                 <th class="no-sort">Job Applied</th>
-                <th class="no-sort">Personality</th>
                 <th class="no-sort">Resume Matching(%)</th>
               </tr>
             </thead>
@@ -64,13 +63,12 @@
               {% for resume in resumes  %}
                 <tr>
                   <td>{{forloop.counter}}</td>
-                  <td>{{resume.fullname}}</td>
+                  <td>{{resume.name}}</td>
                   <td>{{resume.age}}</td>
                   <td>{{resume.email}}</td>
                   <td>{{resume.mobile_number}}</td>
                   <td>{{resume.skills}}</td>
                   <td>{{resume.jobs}}</td>
-                  <td>{{resume.p}}</td>
                   <td>{{resume.matchpercentage}}</td>
                   
                   {% comment %} <td><a href="{{ resume.resume.url }}" target="_blank">{{ resume.resume.url }}</a></td> {% endcomment %}
@@ -79,7 +77,7 @@
             </tbody>
           </table>
         </div>
-     <a href="adminhome"> <button class="btn-primary">Back</button></a>
+     <a href="adminPage"> <button class="btn-primary">Back</button></a>
     </div>
   </body>
   </html>

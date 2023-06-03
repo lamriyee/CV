@@ -4,7 +4,7 @@
 <!-- Mirrored from creativelayers.net/themes/jobhunt-html/index8.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 15:43:34 GMT -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Job Hunt</title>
+	<title>Recruiter|Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -33,7 +33,7 @@
 	
 	<div class="responsive-header five">
 		<div class="responsive-menubar">
-			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a></div>
+			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" /></a></div>
 			<div class="menu-resaction">
 				<div class="res-openmenu">
 					<img src="{% static 'images/icon.png'%}" alt="" /> Menu
@@ -85,31 +85,17 @@
 				<nav>
 					<ul>
 						<li class="menu-item">
-							<a href="mainhome" title="">Home</a>
-						
-						</li>
-						<li class="menu-item">
-							<a href="aboutus" title="">About Us</a>
-							
-						</li>
-						<li class="menu-item">
-							<a href="gallery" title="">Contact</a>
-							
-						</li>
-						<li class="menu-item">
-							<a href="login_page" title="">Job</a>
-							
+							<a href="adlogin_page" title="">Post Jobs</a>		
 						</li>
 						
 					</ul>
 				</nav><!-- Menus -->
 				<div class="logo">
-					<a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a>
+					<a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" width="40px" height="40px"/></a>
 				</div><!-- Logo -->
 				<div class="btn-extars">
 					<ul class="account-btns">
-						<li class="signup-popup"><a href="signuppage"><i class="la la-key"></i> Sign Up</a></li>
-						<li class="signin-popup"><a href="login_page"><i class="la la-external-link-square"></i> Login</a></li>
+						<li class="signin-popup"><a href="adlogin_page"><i class="la la-external-link-square"></i> Login</a></li>
 					</ul>
 				</div><!-- Btn Extras -->
 			</div>
@@ -117,20 +103,8 @@
 	</header>
 
 	<section>
-		<div class="block no-padding  gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="inner2">
-							<div class="inner-title2">
-								<h3>Recruiter Login</h3>
-								<span>Please Login to see the applicants for present job openings.</span>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="recruiter-login" style="box-shadow: 2px 2px 2px gray; padding-top:10px; padding-bottom:10px; background-color:orangered;">
+			<h3 style="color:white;">Recruiter Login</h3>
 		</div>
 	</section>
 
@@ -141,10 +115,6 @@
 					<div class="col-lg-12">
 						<div class="account-popup-area signin-popup-box static">
 							<div class="account-popup">
-                                <div class="select-user">
-									<span><a href="login_page">Candidate</span></a>
-                                    <span class="btn-secondary"><a href="adlogin_page">Recruiter</span></a>
-								</div>
 								<form action="adminlogin" method="post">
                                     {% csrf_token %}
 
@@ -156,7 +126,10 @@
 										<input type="password" name="password" placeholder="********" />
 										<i class="la la-key"></i>
 									</div>
-								
+									{% for message in messages %}
+								<p style="color:red; font-weight:bold;">{{message}}</p>
+
+								{% endfor %}
 									<button type="submit">Login</button>
 								</form>
 								
@@ -168,47 +141,10 @@
 		</div>
 	</section>
 
-	<footer class="style3">
-		<div class="block">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="about_widget">
-								<div class="logo">
-									<a href="#" title=""><img src="{% static 'images/resource/logo9.png'%}" alt="" /></a>
-								</div>
-								<span>JET, Thrissur 680000, India.</span>
-								<span>+1 246-345-0695</span>
-								<span>jet@jobhunt.com</span>
-								<div class="social">
-									<a href="#" title=""><i class="fa fa-facebook"></i></a>
-									<a href="#" title=""><i class="fa fa-twitter"></i></a>
-									<a href="#" title=""><i class="fa fa-linkedin"></i></a>
-									<a href="#" title=""><i class="fa fa-pinterest"></i></a>
-									<a href="#" title=""><i class="fa fa-behance"></i></a>
-								</div>
-                <div>
-                  
-                </div>
-							</div><!-- About Widget -->
-						</div>
-					</div>
-				
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="download_widget">
-								<a href="#" title=""><img src="{% static 'images/resource/di.png'%}" alt="" /></a>
-								<a href="#" title=""><img src="{% static 'images/resource/di2.png'%}" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<footer class="style3" style="position:fixed; bottom:0;">
 		<div class="bottom-line style3">
 			<div class="container">
-				<span>© 2022 Jobhunt All rights reserved. Design by JET</span>
+				<span>© 2023 AMU All rights reserved.</span>
 				<a class="back-top" href="#scrollup" title=""><i class="la la-long-arrow-up"></i></a>
 			</div>
 		</div>

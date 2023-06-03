@@ -29,6 +29,7 @@ RESUME_SECTIONS = [
     'professional experience',
     'publications',
     'skills',
+    'GPA',
 ]
 
 COMPETENCIES = {

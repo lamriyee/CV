@@ -19,13 +19,30 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/chosen.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/colors/colors.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
-<link rel="stylesheet" href="{% static '../../../maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'%}" />
+<link rel="stylesheet" href="../../../maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<link href="{% static 'Admin_page/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'Admin_page/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'Admin_page/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+
+<style>
+	.menu-item a:hover{
+		color:orangered;
+	}
+	#view-status:hover{
+		background-color: white;
+		color: black;
+	}
+	a{
+		text-decoration: none;
+	}
+</style>
 	
 </head>
 <body>
 
 <div class="page-loading">
-	<img src="images/loader.gif" alt="" />
+	<img src="{% static 'images/loader.gif' %}" alt="" />
 	<span>Skip Loader</span>
 </div>
 
@@ -33,7 +50,7 @@
 	
 	<div class="responsive-header five">
 		<div class="responsive-menubar">
-			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a></div>
+			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" /></a></div>
 			<div class="menu-resaction">
 				<div class="res-openmenu">
 					<img src="{% static 'images/icon.png'%}" alt="" /> Menu
@@ -45,10 +62,9 @@
 		</div>
 		<div class="responsive-opensec">
 			<div class="btn-extars">
-				<a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
 				<ul class="account-btns">
 					<li class="signup-popup"><a title=""><i class="la la-key"></i> Sign Up</a></li>
-					<li class="signin-popup"><a title=""><i class="la la-external-link-square"></i> Login</a></li>
+					<li class="signin-popup"><a title=""><i class="la la-external-link-square"></i> Logout</a></li>
 				</ul>
 			</div><!-- Btn Extras -->
 			<form class="res-search">
@@ -58,10 +74,6 @@
 			<div class="responsivemenu">
 				<ul>
           <li class="menu-item">
-            <a href="mainhome" title="">Home</a>
-          
-          </li>
-          <li class="menu-item">
             <a href="aboutus" title="">About Us</a>
             
           </li>
@@ -70,8 +82,10 @@
             
           </li>
           <li class="menu-item">
-            <a href="login_page" title="">Job</a>
-            
+            <a href="login_page" title="">Job</a>   
+          </li>
+		  <li class="menu-item">
+            <a href="check_status" id="view-status" title="" style="border: 2px solid rgb(0, 255, 242); border-radius:10px;">View status</a>   
           </li>
           
         </ul>
@@ -85,10 +99,6 @@
 				<nav>
 					<ul>
 						<li class="menu-item">
-							<a href="mainhome" title="">Home</a>
-						
-						</li>
-						<li class="menu-item">
 							<a href="aboutus" title="">About Us</a>
 							
 						</li>
@@ -97,19 +107,53 @@
 							
 						</li>
 						<li class="menu-item">
-							<a href="login_page" title="">Job</a>
-							
+							<a href="availablejobs" title="">Job</a>		
+						</li>
+						<li class="menu-item">
+							<a href="check_status" id="view-status" title="" style="border: 2px solid rgb(0, 255, 242); border-radius:10px;">View status</a>		
 						</li>
 						
 					</ul>
 				</nav><!-- Menus -->
 				<div class="logo">
-					<a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a>
+					<a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" width="50px" height="50px" alt="" /></a>
 				</div><!-- Logo -->
 				<div class="btn-extars">
 					<ul class="account-btns">
-						<li class="signup-popup"><a href="signuppage"><i class="la la-key"></i> Sign Up</a></li>
-						<li class="signin-popup"><a href="login_page"><i class="la la-external-link-square"></i> Login</a></li>
+						<li class="nav-item dropdown pe-3">
+
+							<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+							  <span class="d-none d-md-block dropdown-toggle ps-2" style="color:white;">Static</span>
+							</a><!-- End Profile Iamge Icon -->
+				  
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+							  <li class="dropdown-header">
+								<h6>{{user}}</h6>
+								<span>Candidate</span>
+							  </li>
+							  <li>
+								<hr class="dropdown-divider">
+							  </li>
+				  
+							  <li>
+								<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#myModal">
+								  <i class="bi bi-person" style="color:black;"></i>
+								  <span style="color:black;">My Profile</span>
+								</a>
+							  </li>
+							  <li>
+								<hr class="dropdown-divider">
+							  </li>
+				  
+							  <li>
+								<a class="dropdown-item d-flex align-items-center" href="logout">
+								  <i class="bi bi-box-arrow-right" style="color:black;"></i>
+								  <span style="color:black;">Sign Out</span>
+								</a>
+							  </li>
+				  
+							</ul><!-- End Profile Dropdown Items -->
+						  </li><!-- End Profile Nav -->
 					</ul>
 				</div><!-- Btn Extras -->
 			</div>
@@ -117,23 +161,9 @@
 	</header>
 
 	<section class="overlape">
-		<div class="block no-padding">
-			<div data-velocity="-.1" style="background: url({% static 'images/resource/mslider1.jpg'%}) repeat scroll 20% 100px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
-			<div class="container fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="inner-header wform">
-							<div class="job-search-sec">
-								<div class="job-search">
-									<h4>Explore current Job Openings</h4>
-								</div><!-- Tags Bar -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+			<div class="job-search" style="box-shadow:2px 2px 2px 2px gray; padding-top:10px; padding-bottom:10px; background-color:orangered;">
+				<h4>Apply for the Job <br> that best suits your Skills and experience</h4>
+			</div><!-- Tags Bar -->
 	</section>
 
 	<section>
@@ -146,7 +176,7 @@
 
 						 <div class="job-list-modern">
                 <div class="job-listings-sec no-border">
-								<div class="job-listing wtabs">
+								<div class="job-listing wtabs" style="box-shadow: 3px 2px 2px 5px gray; margin-bottom:15px; padding-left:10px;">
 									<div class="job-title-sec">
 										<div class="c-logo"></div>
 										<h3><a href="#" title="">{{i.jobrole}}</a></h3>
@@ -155,13 +185,11 @@
 									</div>
 									<div class="job-style-bx">
 										<span class="job-is ft"><a href="{% url 'apply' id=i.jobid %}" class="btn" type="submit">Apply</a></span>
-										<span class="fav-job"><i class="la la-heart-o"></i></span>
+										<span class="fav-job"></span>
 										<i>Job ID: {{i.jobid}}</i>
 									</div>
 								</div>
-							</div>
-
-							
+							</div>						
 						 </div>
              {% endfor %}
 
@@ -172,54 +200,43 @@
 	</section>
 
 	<footer class="style3">
-		<div class="block">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="about_widget">
-								<div class="logo">
-									<a href="#" title=""><img src="{% static 'images/resource/logo9.png'%}" alt="" /></a>
-								</div>
-								<span>JET, Thrissur 680000, India.</span>
-								<span>+1 246-345-0695</span>
-								<span>jet@jobhunt.com</span>
-								<div class="social">
-									<a href="#" title=""><i class="fa fa-facebook"></i></a>
-									<a href="#" title=""><i class="fa fa-twitter"></i></a>
-									<a href="#" title=""><i class="fa fa-linkedin"></i></a>
-									<a href="#" title=""><i class="fa fa-pinterest"></i></a>
-									<a href="#" title=""><i class="fa fa-behance"></i></a>
-								</div>
-                <div>
-                  
-                </div>
-							</div><!-- About Widget -->
-						</div>
-					</div>
-				
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="download_widget">
-								<a href="#" title=""><img src="{% static 'images/resource/di.png'%}" alt="" /></a>
-								<a href="#" title=""><img src="{% static 'images/resource/di2.png'%}" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="bottom-line style3">
 			<div class="container">
-				<span>© 2022 Jobhunt All rights reserved. Design by JET</span>
+				<span>© 2023 AMU All rights reserved.</span>
 				<a class="back-top" href="#scrollup" title=""><i class="la la-long-arrow-up"></i></a>
 			</div>
 		</div>
 	</footer>
 
-</div>
-
-<!-- LOGIN POPUP -->
+<!-- PROFILE POPUP -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Profile</h4>
+		  <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Full Name : </p>
+        </div>
+		<div class="modal-body">
+			<p>Email : </p>
+		  </div>
+		  <div class="modal-body">
+			<p>Username : </p>
+		  </div>
+		  <div class="modal-body">
+			<p>Phone number : </p>
+		  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="border:2px solid red; border-radius:10px;">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
 <script src="{% static 'js/jquery.min.js'%}" type="text/javascript"></script>
@@ -231,6 +248,12 @@
 <script src="{% static 'js/parallax.js'%}" type="text/javascript"></script>
 <script src="{% static 'js/select-chosen.js'%}" type="text/javascript"></script>
 <script src="{% static 'js/counter.js'%}" type="text/javascript"></script>
+
+<script src="{% static 'Admin_page/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+<!-- Template Main JS File -->
+<script src="{% static 'Admin_page/assets/js/main.js' %}"></script>
 
 </body>
 

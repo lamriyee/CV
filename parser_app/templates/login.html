@@ -25,7 +25,7 @@
 <body>
 
 <div class="page-loading">
-	<img src="images/loader.gif" alt="" />
+	<img src="{% static 'images/loader.gif' %}" alt="" />
 	<span>Skip Loader</span>
 </div>
 
@@ -33,7 +33,7 @@
 	
 	<div class="responsive-header five">
 		<div class="responsive-menubar">
-			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a></div>
+			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt=""  /></a></div>
 			<div class="menu-resaction">
 				<div class="res-openmenu">
 					<img src="{% static 'images/icon.png'%}" alt="" /> Menu
@@ -104,7 +104,7 @@
 					</ul>
 				</nav><!-- Menus -->
 				<div class="logo">
-					<a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a>
+					<a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" width="40px" height="40px"/></a>
 				</div><!-- Logo -->
 				<div class="btn-extars">
 					<ul class="account-btns">
@@ -117,21 +117,10 @@
 	</header>
 
 	<section>
-		<div class="block no-padding  gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="inner2">
-							<div class="inner-title2">
-								<h3>Applicant Login</h3>
-								<span>Please Login to see the available job openings.</span>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+      <div class="recruiter-login" style="box-shadow: 2px 2px 2px gray; padding-top:10px; padding-bottom:10px; background-color:orangered; color:white; text-align:center;">
+		<h3>Applicant Login</h3>
+		<span>Please Login to see the available jobs and apply for the job that best suits your skill and specializations.</span>
+	  </div>
 	</section>
 
 	<section>
@@ -139,12 +128,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="account-popup-area signin-popup-box static">
+						<div class="account-popup-area signin-popup-box static" style="box-shadow: 2px 2px 2px 2px gray; border-radius:10px;">
 							<div class="account-popup">
-                                <div class="select-user">
-									<span class="btn-secondary"><a href="login_page">Candidate</span></a>
-                                    <span><a href="adlogin_page">Recruiter</span></a>
-								</div>
 								<form action="login" method="post">
                                     {% csrf_token %}
 
@@ -156,13 +141,16 @@
 										<input type="password" name="password" placeholder="********" />
 										<i class="la la-key"></i>
 									</div>
+									{% for msg in messages %}
+									<p style="color:red;">{{msg}}</p>
+								{% endfor %} 
 								
 									<button type="submit">Login</button>
 								</form>
 								<div class="extra-login">
 									<span>Or</span>
-									<div class="">
-                                        <a href="signuppage" title="">Registration for new user</a>
+									<div class="" style="border:2px solid rgb(5, 245, 233);">
+                                        <a href="signuppage" title="">Registration for new applicants</a>
 
 									</div>
 								</div>
@@ -175,46 +163,9 @@
 	</section>
 
 	<footer class="style3">
-		<div class="block">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="about_widget">
-								<div class="logo">
-									<a href="#" title=""><img src="{% static 'images/resource/logo9.png'%}" alt="" /></a>
-								</div>
-								<span>JET, Thrissur 680000, India.</span>
-								<span>+1 246-345-0695</span>
-								<span>jet@jobhunt.com</span>
-								<div class="social">
-									<a href="#" title=""><i class="fa fa-facebook"></i></a>
-									<a href="#" title=""><i class="fa fa-twitter"></i></a>
-									<a href="#" title=""><i class="fa fa-linkedin"></i></a>
-									<a href="#" title=""><i class="fa fa-pinterest"></i></a>
-									<a href="#" title=""><i class="fa fa-behance"></i></a>
-								</div>
-                <div>
-                  
-                </div>
-							</div><!-- About Widget -->
-						</div>
-					</div>
-				
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="download_widget">
-								<a href="#" title=""><img src="{% static 'images/resource/di.png'%}" alt="" /></a>
-								<a href="#" title=""><img src="{% static 'images/resource/di2.png'%}" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="bottom-line style3">
 			<div class="container">
-				<span>© 2022 Jobhunt All rights reserved. Design by JET</span>
+				<span>© 2023 AMU All rights reserved.</span>
 				<a class="back-top" href="#scrollup" title=""><i class="la la-long-arrow-up"></i></a>
 			</div>
 		</div>

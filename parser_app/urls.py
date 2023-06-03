@@ -1,18 +1,3 @@
-"""resume_parser.parser_app URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.urls import path, include, re_path
 from . import views
 from django.conf import settings
@@ -23,7 +8,9 @@ urlpatterns = [
     path('signuppage', views.index, name='index'),
     path('signup', views.signup, name='signup'),
     path('login_page', views.login_page, name='login_page'),
+    path('check_status', views.check_status, name='check_status'),
     re_path(r'^logout$', views.logout, name='logout'),
+    re_path(r'^adminlogout$', views.adminlogout, name='adminlogout'),
     path('home', views.home, name='home'),
     path('pyresults', views.pyresults, name='pyresults'),
     path('trresults', views.trresults, name='trresults'),
@@ -31,12 +18,12 @@ urlpatterns = [
     path('jvresults', views.jvresults, name='jvresults'),
     path('teresults', views.teresults, name='teresults'),
     path('manresults', views.manresults, name='manresults'),
-    path(r'^new/(?P<id>\d+)/$', views.new, name='new'),
+    re_path(r'^new/(?P<id>\d+)/$', views.new, name='new'),
     path('login', views.login, name='login'),
     path('mainhome', views.mainhome, name='mainhome'),
     path('', views.mainhome, name='mainhome'),
     path('aboutus', views.aboutus, name='aboutus'),
-    path(r'^apply/(?P<id>\d+)/$', views.apply, name='apply'),
+    re_path(r'^apply/(?P<id>\d+)/$', views.apply, name='apply'),
     path('availablejobs', views.availablejobs, name='availablejobs'),
     path('apply', views.apply, name='apply'),
     path('gallery', views.gallery, name='gallery'),
@@ -47,6 +34,10 @@ urlpatterns = [
     path('newjob', views.newjob, name='newjob'),
     path('adlogin_page', views.adlogin_page, name='adlogin_page'),
     path('adminlogin', views.adminlogin, name='adminlogin'),
+    path('adminPage', views.adminPage, name='adminPage'),
+    path('viewjobs', views.viewjobs, name='viewjobs'),
+    path('contactComment', views.writeComment, name='contactComment'),
+    path('recruiterlogin', views.recruiterlogin, name='recruiterlogin'),
 
 
 

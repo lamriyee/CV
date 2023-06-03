@@ -33,7 +33,7 @@
 	
 	<div class="responsive-header five">
 		<div class="responsive-menubar">
-			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a></div>
+			<div class="res-logo"><a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" /></a></div>
 			<div class="menu-resaction">
 				<div class="res-openmenu">
 					<img src="{% static 'images/icon.png'%}" alt="" /> Menu
@@ -104,7 +104,7 @@
 					</ul>
 				</nav><!-- Menus -->
 				<div class="logo">
-					<a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a>
+					<a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" width="40px" height="40px"/></a>
 				</div><!-- Logo -->
 				<div class="btn-extars">
 					<ul class="account-btns">
@@ -116,59 +116,44 @@
 		</div>
 	</header>
 
-	<section>
-		<div class="block no-padding  gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="inner2">
-							<div class="inner-title2">
-								<h3>Contact</h3>
-								<span>Keep up to date with the latest news</span>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<section style="background-color: orangered; box-shadow:2px 2px 2px 2px gray; padding-top:10px; padding-bottom:10px; text-align:center;">
+		<h3>Contact</h3>
+		<span>Keep up to date with the latest news</span>
 	</section>
 
 	<section>
 		<div class="block">
 			<div class="container">
 				 <div class="row">
-				 	<div class="col-lg-6 column">
+				 	<div class="col-lg-6 column" style="box-shadow: 2px 2px 2px 2px gray; padding-bottom:10px; padding-top:10px; border-radius:10px;">
 				 		<div class="contact-form">
 				 			<h3>Keep In Touch</h3>
-				 			<form>
+				 			<form action="contactComment" method="POST">
+								{%csrf_token %}
 				 				<div class="row">
 				 					<div class="col-lg-12">
 				 						<span class="pf-title">Full Name</span>
 				 						<div class="pf-field">
-				 							<input type="text" placeholder="Full Name" />
+				 							<input type="text" name="fullname" placeholder="Full Name" />
 				 						</div>
 				 					</div>
 				 					<div class="col-lg-12">
 				 						<span class="pf-title">Email</span>
 				 						<div class="pf-field">
-				 							<input type="text" placeholder="Email" />
-				 						</div>
-				 					</div>
-				 					<div class="col-lg-12">
-				 						<span class="pf-title">Subject</span>
-				 						<div class="pf-field">
-				 							<input type="text" placeholder="Subject" />
+				 							<input type="text" name="email" placeholder="Email" />
 				 						</div>
 				 					</div>
 				 					<div class="col-lg-12">
 				 						<span class="pf-title">Message</span>
 				 						<div class="pf-field">
-				 							<textarea></textarea>
+				 							<textarea name="comment"></textarea>
 				 						</div>
 				 					</div>
 				 					<div class="col-lg-12">
-				 						<button type="submit">Send</button>
+				 						<button type="submit">Send</button> <br>
+										 {% for msg in messages %}
+										 <p style="color:green;">{{msg}}</p>
+									 {% endfor %} 
 				 					</div>
 				 				</div>
 				 			</form>
@@ -176,14 +161,12 @@
 				 	</div>
 				 	<div class="col-lg-6 column">
 					 	<div class="contact-textinfo">
-					 		<h3>JobHunt Office</h3>
+					 		<h3>HR Office</h3>
 					 		<ul>
-					 			<li><i class="la la-map-marker"></i><span>JET Inc., Thrrissur, Kerala 123456 </span></li>
+					 			<li><i class="la la-map-marker"></i><span>AMU, Main campus, FCSE </span></li>
 					 			<li><i class="la la-phone"></i><span>Call Us : 0934 343 343</span></li>
-					 			<li><i class="la la-fax"></i><span>Fax : 0934 343 343</span></li>
-					 			<li><i class="la la-envelope-o"></i><span>Email : jet@jobhunt.com</span></li>
+					 			<li><i class="la la-envelope-o"></i><span>Email : amufcse@info.com</span></li>
 					 		</ul>
-					 		<a class="fill" href="#" title="">See on Map</a><a href="#" title="">Directions</a>
 					 	</div>
 					</div>
 				 </div>
@@ -199,11 +182,11 @@
 						<div class="widget">
 							<div class="about_widget">
 								<div class="logo">
-									<a href="#" title=""><img src="{% static 'images/resource/logo9.png'%}" alt="" /></a>
+									<a href="#" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" width="40px" height="40px"/></a>
 								</div>
-								<span>JET, Thrissur 680000, India.</span>
-								<span>+1 246-345-0695</span>
-								<span>jet@jobhunt.com</span>
+								<span>AMU, Main Campus, Arba Minch.</span>
+								<span>+246-345-0695-456</span>
+								<span>amufcse@info.com</span>
 								<div class="social">
 									<a href="#" title=""><i class="fa fa-facebook"></i></a>
 									<a href="#" title=""><i class="fa fa-twitter"></i></a>
@@ -221,8 +204,8 @@
 					<div class="col-lg-3 column">
 						<div class="widget">
 							<div class="download_widget">
-								<a href="#" title=""><img src="{% static 'images/resource/di.png'%}" alt="" /></a>
-								<a href="#" title=""><img src="{% static 'images/resource/di2.png'%}" alt="" /></a>
+								<a href="#" title=""><img src="{% static 'images/resource/'%}" alt="" /></a>
+								<a href="#" title=""><img src="{% static 'images/resource/'%}" alt="" /></a>
 							</div>
 						</div>
 					</div>
@@ -231,7 +214,7 @@
 		</div>
 		<div class="bottom-line style3">
 			<div class="container">
-				<span>© 2022 Jobhunt All rights reserved. Design by JET</span>
+				<span>© 2023 AMU All rights reserved.</span>
 				<a class="back-top" href="#scrollup" title=""><i class="la la-long-arrow-up"></i></a>
 			</div>
 		</div>

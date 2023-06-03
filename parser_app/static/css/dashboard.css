@@ -1,0 +1,26 @@
+.admin-dashboard{
+    display: flex;
+    flex-direction: row;
+}
+.dashboard-box{
+    width: 25%;
+    height: 150px;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px red;
+    border-radius: 5px;
+    margin-left: 3%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.dashboard-box p{
+    font-size: 44px;
+    font-weight: bold;
+    color: orangered;
+    text-align: center;
+}
+.dashboard-box h5{
+    text-align: center;
+}

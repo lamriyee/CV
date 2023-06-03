@@ -4,7 +4,7 @@
 <!-- Mirrored from creativelayers.net/themes/jobhunt-html/index8.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 15:43:34 GMT -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Job Hunt</title>
+	<title>Shortlist Candidates</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -15,11 +15,21 @@
 	<link rel="stylesheet" href="{% static 'css/icons.css'%}">
 	<link rel="stylesheet" href="{% static 'css/animate.min.css'%}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/chosen.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/colors/colors.css'%}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
 <link rel="stylesheet" href="{% static '../../../maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'%}" />
+  <style>
+	.job-style-bx span:hover{
+		background-color: rgb(3, 9, 41);
+		transition: .1s all;
+	}
+	.job-style-bx span a:hover{
+		color:white;
+	}
+  </style>
 	
 </head>
 <body>
@@ -45,7 +55,7 @@
 		</div>
 		<div class="responsive-opensec">
 			<div class="btn-extars">
-				<a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+				<a href="addjob" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
 				<ul class="account-btns">
 					<li class="signup-popup"><a title=""><i class="la la-key"></i> Sign Up</a></li>
 					<li class="signin-popup"><a title=""><i class="la la-external-link-square"></i> Login</a></li>
@@ -59,7 +69,12 @@
 				<ul>
           
           <li class="menu-item">
-            <a href="addjob" title="">Add new Job</a>
+			<span><i class="la la-back"></i></span>
+            <a href="addjob" title="">Back</a>
+          </li>
+
+		  <li class="menu-item">
+            <a href="viewapplicants" title="">View applicants</a>
           </li>
           
         </ul>
@@ -72,18 +87,17 @@
 			<div class="container fluid">
 				<nav>
 					<ul>
-						<li class="menu-item">
-              <a href="addjob" title="">Add new Job</a>
-            </li>
-						
+						<li class="menu-item" style="display:flex;flex-direction:row;">
+							<a href="adminPage" title=""><span><i class="la la-arrow-left"></i></span> Back</a>
+						  </li>
 					</ul>
 				</nav><!-- Menus -->
 				<div class="logo">
-					<a href="index.html" title=""><img src="{% static 'images/resource/logo8.png'%}" alt="" /></a>
+					<a href="index.html" title=""><img src="{% static 'images/resource/hr.png'%}" alt="" width="40px" height="40px"/></a>
 				</div><!-- Logo -->
 				<div class="btn-extars">
 					<ul class="account-btns">
-            <li class="signout-popup"><a href="logout"><i class="la la-external-link-square"></i> Logout</a></li>
+            <li class="signout-popup"><a href="adminlogout"><i class="la la-external-link-square"></i> Logout</a></li>
 
 						</ul>
 				</div><!-- Btn Extras -->
@@ -91,25 +105,9 @@
 		</div>
 	</header>
 
-	<section class="overlape">
-		<div class="block no-padding">
-			<div data-velocity="-.1" style="background: url({% static 'images/resource/mslider1.jpg'%}) repeat scroll 20% 100px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
-			<div class="container fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="inner-header wform">
-							<div class="job-search-sec">
-								<div class="job-search">
-									<h4>Welcome {{ user }}</h4><br>
-									<br><h4>List of Shortlisted Candidates</h4>
-
-								</div><!-- Tags Bar -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	<section class="overlape" style="box-shadow:2px 2px 2px 2px gray; background-color:orangered;">
+		<div class="job-search">
+			<br><h4 style="color:black;">Please select the job and <b>Shortlist Candidates</b> for that job</h4>
 		</div>
 	</section>
 
@@ -123,10 +121,10 @@
 
 						 <div class="job-list-modern">
                 <div class="job-listings-sec no-border">
-								<div class="job-listing wtabs">
-									<div class="job-title-sec">
+								<div class="job-listing wtabs" style="box-shadow: 2px 2px 5px 5px gray; margin-bottom:15px;">
+									<div class="job-title-sec" style="margin-left: 20px;">
 										<div class="c-logo"></div>
-										<h3><a href="#" title="">{{i.jobrole}}</a></h3>
+										<h3><a href="#" title="">Job Name : {{i.jobrole}}</a></h3>
 										<span>Experience Required: {{i.jobexp}}</span>
 										<div class="job-lctn"><i class="la la-map-marker"></i>{{i.joblocation}}</div>
 										<span>Job Added On: {{i.jobdate}}</span>
@@ -136,21 +134,20 @@
                     
                     
                       {% if i.jobrole == "Python Developer" %}
-                      <span class="job-is ft"><a href="{% url "pyresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "pyresults" %}" class="btn" type="submit">Shortlist</a>
                       {% elif  i.jobrole == "HR Excecutive" %}
-                      <span class="job-is ft"><a href="{% url "hrresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "hrresults" %}" class="btn" type="submit">Shortlist</a>
                       {% elif  i.jobrole == "Java Developer" %}
-                      <span class="job-is ft"><a href="{% url "jvresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "jvresults" %}" class="btn" type="submit">Shortlist</a>
                       {% elif  i.jobrole == "Trainer" %}
-                      <span class="job-is ft"><a href="{% url "trresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "trresults" %}" class="btn" type="submit">Shortlist</a>
                       {% elif  i.jobrole == "Technician" %}
-                      <span class="job-is ft"><a href="{% url "teresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "teresults" %}" class="btn" type="submit">Shortlist</a>
                       {% elif  i.jobrole == "Sales Manager" %}
-                      <span class="job-is ft"><a href="{% url "manresults" %}" class="btn" type="submit">View </a>
+                      <span class="job-is ft"><a href="{% url "manresults" %}" class="btn" type="submit">Shortlist</a>
                       {% endif %}
                     
-                      <span class="fav-job"><i class="la la-heart-o"></i></span>
-										<i>Job ID: {{i.jobid}}</i>
+                      <span class="fav-job"></span>
 										
 										
 									</div>
@@ -169,46 +166,9 @@
 	</section>
 
 	<footer class="style3">
-		<div class="block">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="about_widget">
-								<div class="logo">
-									<a href="#" title=""><img src="{% static 'images/resource/logo9.png'%}" alt="" /></a>
-								</div>
-								<span>JET, Thrissur 680000, India.</span>
-								<span>+1 246-345-0695</span>
-								<span>jet@jobhunt.com</span>
-								<div class="social">
-									<a href="#" title=""><i class="fa fa-facebook"></i></a>
-									<a href="#" title=""><i class="fa fa-twitter"></i></a>
-									<a href="#" title=""><i class="fa fa-linkedin"></i></a>
-									<a href="#" title=""><i class="fa fa-pinterest"></i></a>
-									<a href="#" title=""><i class="fa fa-behance"></i></a>
-								</div>
-                <div>
-                  
-                </div>
-							</div><!-- About Widget -->
-						</div>
-					</div>
-				
-					<div class="col-lg-3 column">
-						<div class="widget">
-							<div class="download_widget">
-								<a href="#" title=""><img src="{% static 'images/resource/di.png'%}" alt="" /></a>
-								<a href="#" title=""><img src="{% static 'images/resource/di2.png'%}" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="bottom-line style3">
 			<div class="container">
-				<span>© 2022 Jobhunt All rights reserved. Design by JET</span>
+				<span>© 2023 AMU All rights reserved.</span>
 				<a class="back-top" href="#scrollup" title=""><i class="la la-long-arrow-up"></i></a>
 			</div>
 		</div>

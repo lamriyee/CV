@@ -28,35 +28,22 @@ import os.path
 import shutil
 from sys import argv
 import docx2txt
+import PyPDF2
+from rest_framework import serializers
+from django.core import serializers
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class train_model:
 
-    def train(self, qoi, qni, qci, qai, qei, age, gender):
-        data = pd.read_csv('resume_parser/train dataset.csv')
+    def train(Category,resume):
+        data = pd.read_csv('resume_parser/jobSkills.csv')
         array = data.values
-        drop_columns = ['Personality (Class label)']
-        X = data.drop(drop_columns, axis=1)
-        print(X)
 
-        if gender == 'Male':
-            X['Gender'] = 1
-        else:
-            X['Gender'] = 0
-
-        y = data['Personality (Class label)']
+        y = data['Category']
         print(y)
 
-        X['openness'].values
-        X['conscientiousness'].values
-        X['extraversion'].values
-        X['agreeableness'].values
-        X['neuroticism'].values
-
-        if gender == "Male":
-            a = 1
-        else:
-            a = 0
+        X['Category'].values
+        X['Resume'].values
 
         mul_lr = linear_model.LogisticRegression(
             multi_class='multinomial', solver='newton-cg', max_iter=1000)
@@ -69,13 +56,11 @@ class train_model:
         dt2 = DecisionTreeClassifier(criterion='entropy')
         dt2.fit(X_train, y_train)
         X_train
-        testdata = pd.read_csv('resume_parser/test dataset.csv')
+        testdata = pd.read_csv('resume_parser/jobTest.csv')
         print(testdata.columns)
-        drop_columns = ['Personality (class label)']
+        drop_columns = ['Category']
         X_test = testdata.drop(drop_columns, axis=1)
-        equiv = {"Male": 1, 'Female': 0}
-        X_test['Gender'] = X_test['Gender'].map(equiv)
-        y_test = testdata['Personality (class label)']
+        y_test = testdata['Category']
         y_pred = mul_lr.predict(X_test)
         y_pred
         y_pred_dt = dt2.predict(X_test)
@@ -89,8 +74,7 @@ class train_model:
         dot_data = export_graphviz(dt2, out_file=None)
         print(dot_data)
 
-        test = pd.DataFrame({'Gender': a, 'Age': age, 'openness': qoi, 'neuroticism': qni,
-                             'conscientiousness': qci, 'agreeableness': qai, 'extraversion': qei}, index=[0])
+        test = pd.DataFrame({'Category': Category, 'Resume': Category}, index=[0])
         print(mul_lr.predict(test))
 
         return mul_lr.predict(test)
@@ -120,7 +104,6 @@ def prediction_result(aplcnt_name, personality_values):
 
 
 def new(request, id):
-
     jb = job.objects.filter(jobid=id).first()
     print(id)
     file_form = UploadResumeModelForm(request.POST, request.FILES)
@@ -175,81 +158,27 @@ def new(request, id):
 
             matchpercentage = cosine_similarity(count_matrix)[0][1]
             resume.matchpercentage = round(matchpercentage*100, 2)
+
+            if resume.matchpercentage >= 50:
+                resume.short=1
+            else:
+                resume.short=0
+            
             print('Your Resume {} % match to the job description !'.format(
                 resume.matchpercentage))
-            resume.fullname = request.POST['fullname']
-            resume.age = request.POST['age']
-            resume.exp = request.POST['exp']
-            resume.gender = request.POST['gender']
-            resume.qo1 = request.POST['qo1']
-            resume.qo2 = request.POST['qo2']
-            resume.qo3 = request.POST['qo3']
-            resume.qo4 = request.POST['qo4']
-            resume.qn1 = request.POST['qn1']
-            resume.qn2 = request.POST['qn2']
-            resume.qn3 = request.POST['qn3']
-            resume.qn4 = request.POST['qn4']
-            resume.qc1 = request.POST['qc1']
-            resume.qc2 = request.POST['qc2']
-            resume.qc3 = request.POST['qc3']
-            resume.qc4 = request.POST['qc4']
-            resume.qa1 = request.POST['qa1']
-            resume.qa2 = request.POST['qa2']
-            resume.qa3 = request.POST['qa3']
-            resume.qa4 = request.POST['qa4']
-            resume.qe1 = request.POST['qe1']
-            resume.qe2 = request.POST['qe2']
-            resume.qe3 = request.POST['qe3']
-            resume.qe4 = request.POST['qe4']
-            resume.qoi = int((int(resume.qo1)+int(resume.qo2) +
-                              int(resume.qo3)+int(resume.qo4))/2.86)
-            resume.qni = int((int(resume.qn1)+int(resume.qn2) +
-                              int(resume.qn3)+int(resume.qn4))/2.86)
-            resume.qci = int((int(resume.qc1)+int(resume.qc2) +
-                              int(resume.qc3)+int(resume.qc4))/2.86)
-            resume.qai = int((int(resume.qa1)+int(resume.qa2) +
-                              int(resume.qa3)+int(resume.qa4))/2.86)
-            resume.qei = int((int(resume.qe1)+int(resume.qe2) +
-                              int(resume.qe3)+int(resume.qe4))/2.86)
+            
             model = train_model()
             
             expr = request.POST['expr']
-            p1 = request.POST['p1']
-            p2 = request.POST['p2']
-
-            # expper = int((int(resume.exp)/int(exp))*100)
-            p = model.train(resume.qoi, resume.qni, resume.qci,
-                            resume.qai, resume.qei, resume.age, resume.gender)
-
-            if p == ['dependable']:
-                resume.p = "Dependable"
-
-            elif p == ['serious']:
-                resume.p = "Serious"
-
-            elif p == ['responsible']:
-                resume.p = "Responsible"
-
-            elif p == ['lively']:
-                resume.p = "Lively"
-
-            elif p == ['extraverted']:
-                resume.p = "Extraverted"
-
-            if resume.exp >= expr:
-                if resume.p == p1 or resume.p == p2:
-                    resume.short = 1
 
             # if expper >= 100:
             #     expper = 100
 
             # print(expper)
 
-            resume.matching = int(int((int(resume.qoi)+int(resume.qni)+int(resume.qci)+int(
-                resume.qai)+int(resume.qei)) + int(resume.matchpercentage))/2)
+            resume.matching =double(resume.matchpercentage)
             if resume.matching >= 100:
                 resume.matching = 100
-
             resume.save()
 
             return redirect('thankyou')
@@ -281,6 +210,7 @@ def signup(request):
         name = request.POST['name']
         email = request.POST['email']
         username = request.POST['username']
+        mobile_number = request.POST['mobile_number']
         password = request.POST['password']
         cpassword = request.POST['cpassword']
 
@@ -289,9 +219,12 @@ def signup(request):
                 messages.info(
                     request, 'This username already exists. Please try again!!')
                 return redirect('index')
+            elif applicants.objects.filter(email=email).exists():
+                messages.info(request,'This email address already exist. Please try again!!')
+                return redirect('index')
             else:
                 users = applicants(
-                    name=name, email=email, username=username, password=password, cpassword=cpassword)
+                    name=name, email=email, username=username,mobile_number=mobile_number, password=password, cpassword=cpassword)
                 users.save()
                 messages.info(
                     request, 'Account created successfully.')
@@ -307,6 +240,9 @@ def signup(request):
 def login_page(request):
     return render(request, 'login.html')
 
+def check_status(request):
+    return render(request, 'view_status.html')
+
 
 def login(request):
     if request.method == 'POST':
@@ -314,10 +250,10 @@ def login(request):
         password = request.POST.get('password')
 
         if applicants.objects.filter(username=username).exists() and applicants.objects.filter(password=password).exists():
-            messages.success(request, 'Logged in successfully')
             return redirect('availablejobs')
+        
         else:
-            messages.info(request, 'Please try again')
+            messages.info(request, 'Username or password incorrect!, Please try again')
             return redirect('login_page')
     else:
         return redirect('login_page')
@@ -326,7 +262,19 @@ def login(request):
 def adlogin_page(request):
     return render(request, 'adminlogin.html')
 
+def recruiterlogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
+        if recruiters.objects.filter(username=username).exists() and recruiters.objects.filter(recruiter_password=password).exists():
+            return redirect('adminPage')
+        else:
+            messages.info(request, 'Username or password incorrect!, Please try again')
+            return redirect('adlogin_page')
+    else:
+        return redirect('adlogin_page')
+    
 def adminlogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -335,10 +283,9 @@ def adminlogin(request):
 
         if user is not None:
             auth.login(request, user)
-            messages.success(request, 'Logged in successfully')
-            return redirect('adminhome')
+            return redirect('adminPage')
         else:
-            messages.info(request, 'Please try again')
+            messages.info(request, 'Usename or password incorrect, Please try again')
             return redirect('adlogin_page')
     else:
         return redirect('adlogin_page')
@@ -390,6 +337,11 @@ def viewapplicants(request):
     resumes = Resume.objects.all()
     return render(request, 'viewapplicants.html', {'resumes': resumes})
 
+@login_required(login_url='adlogin_page')
+def viewjobs(request):
+    jobb = job.objects.all()
+    return render(request, 'view_jobs.html', {'jobs': jobb})
+
 
 @login_required(login_url='adlogin_page')
 def pyresults(request):
@@ -436,5 +388,94 @@ def manresults(request):
 def logout(request):
     request.session["uid"] = ""
     auth.logout(request)
-    messages.success(request, 'Logged out successfully')
     return redirect('/')
+
+def adminlogout(request):
+    request.session["uid"] = ""
+    auth.logout(request)
+    return redirect('adlogin_page')
+
+@login_required(login_url='adlogin_page')
+def adminPage(request):
+    resumes = Resume.objects.all()
+    applicants_count=resumes.count()
+    jobo=job.objects.all()
+    job_count=jobo.count()
+
+    total_users=applicants.objects.all()
+    users_count=total_users.count()
+
+    commments=serializers.serialize('python',contactComment.objects.all())
+
+    users_comment=contactComment.objects.all()
+    comment_count=users_comment.count()
+
+    application_request=serializers.serialize('python',Resume.objects.all())
+    
+    applied_users=Resume.objects.all()
+    application_count=applied_users.count()
+
+    context = {
+        'resumes' : resumes,
+        'applicants_count' :applicants_count,
+        'jobo' : jobo,
+        'job_count' : job_count,
+        'total_users' : total_users,
+        'users_count' : users_count,
+        'commments' : commments,
+        'users_comment' : users_comment,
+        'comment_count' :comment_count,
+        'application_request' : application_request,
+        'applied_users' : applied_users,
+        'application_count' : application_count
+    }
+    return render(request,"HR_page.html",context)
+
+@login_required(login_url='adlogin_page')
+def viewjobs(request):
+    joboo=serializers.serialize('python',job.objects.all())
+
+    resumes = Resume.objects.all()
+    applicants_count=resumes.count()
+    jobo=job.objects.all()
+    job_count=jobo.count()
+
+    total_users=applicants.objects.all()
+    users_count=total_users.count()
+
+    commments=serializers.serialize('python',contactComment.objects.all())
+
+    users_comment=contactComment.objects.all()
+    comment_count=users_comment.count()
+
+    application_request=serializers.serialize('python',Resume.objects.all())
+    
+    applied_users=Resume.objects.all()
+    application_count=applied_users.count()
+    context = {
+        'joboo' :joboo,
+        'resumes' : resumes,
+        'applicants_count' :applicants_count,
+        'jobo' : jobo,
+        'job_count' : job_count,
+        'total_users' : total_users,
+        'users_count' : users_count,
+        'commments' : commments,
+        'users_comment' : users_comment,
+        'comment_count' :comment_count,
+        'application_request' : application_request,
+        'applied_users' : applied_users,
+        'application_count' : application_count
+    }
+
+    return render(request,"viewjobs.html",context)
+def writeComment(request):
+    if request.method == 'POST':
+        fullName = request.POST['fullname']
+        user_email = request.POST['email']
+        comment = request.POST['comment']
+
+        comments = contactComment(fullName=fullName, user_email=user_email, comment=comment)
+        comments.save()
+        messages.info(request, 'Comment sent suceessfully...')
+        return redirect('gallery')
